@@ -1,0 +1,76 @@
+:root {
+    --cell-side: 3rem;
+    --grid-gap: 1px;
+    --border: 1px;
+    --grid-columns: 8;
+    --grid-lines: 8;
+    --board-color: linen;
+    --selection-color: #DC143C;
+    --selection-color-light: #dc143c75;
+    --deploy-color-light: #00bfff75;
+}
+.kings {
+	background: #f6f6f6;
+	color: #333;
+}
+.kings label {
+    border: 1px solid steelblue;
+    border-radius: 4px;
+    padding: 4px;
+    margin: 0 2px;
+}
+.grid {
+    display: grid;
+    background: center / cover url('../../img/grass.png') forestgreen no-repeat;
+    height: calc(calc(var(--cell-side) * var(--grid-lines)) + calc(calc(var(--grid-gap) * 2 + var(--border)) * var(--grid-lines)));
+    width: calc(calc(var(--cell-side) * var(--grid-columns)) + calc(calc(var(--grid-gap) * 2 + var(--border)) * var(--grid-columns)));
+    display: grid;
+    grid-template-rows: repeat(var(--grid-columns), 1fr);
+    grid-template-columns: repeat(var(--grid-columns), 1fr);
+    grid-gap: var(--grid-gap);
+    margin: 0 auto;
+    border: 1px solid #888;
+    overflow: hidden;
+    transform: rotateX(55deg) rotateY(0deg) rotateZ(-45deg);
+}
+.king {
+    background: 
+        center
+        url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 10 70 80%22><foreignObject width=%22100px%22 height=%22100px%22><div xmlns=%22http://www.w3.org/1999/xhtml%22 style=%22color:transparent;background:linear-gradient(0deg, gold 25%, lemonchiffon 60%, crimson 98%);background-clip:text;-webkit-background-clip:text;font-size:70px%22>👑</div></foreignObject></svg>")
+        no-repeat;
+    background-size: 50px 50px;
+    
+}
+.cell {
+    background-color: transparent;
+    width: var(--cell-side);
+    height: var(--cell-side);
+    transition: all 400ms;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: var(--border) solid rebeccapurple;
+}
+.cell:hover, .muster:hover {
+    outline: 3px dashed var(--selection-color);
+}
+.muster {background-color: var(--selection-color-light);}
+.deployable { background-color: var(--deploy-color-light);}
+.troop {
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    user-select: none;
+    font-weight: 700;
+    transform: rotateX(-30deg) rotateY(10deg) rotateZ(45deg) scaleX(1.1) scaleY(1.8);
+}
+.dagger {
+    display: inline-block;
+    transform: rotate(150deg) translateY(5px);
+}
+.shield {
+    display: inline-block;
+    transform: translateY(-3px);
+}
