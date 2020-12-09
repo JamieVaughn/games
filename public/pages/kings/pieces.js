@@ -12,10 +12,11 @@ export const units = {
         name: 'conscript',
         icon: '🗡️',
         css: 'dagger',
-        abilities: ['labor', 'miner', 'soldier'],
         attack: 1,
         defense: 1,
-        speed: 1
+        speed: 1,
+        cap: 50,
+        abilities: ['labor', 'miner', 'soldier']
     },
     l: {
         name: 'laborer',
@@ -24,6 +25,7 @@ export const units = {
         attack: 1,
         defense: 0,
         speed: 1,
+        cap: 50,
         abilities: ['build', 'conscript']
     },
     m: {
@@ -33,6 +35,7 @@ export const units = {
         attack: 1,
         defense: 0,
         speed: 1,
+        cap: 50,
         abilities: ['dig', 'conscript', 'alchemist']
     },
     a: {
@@ -42,6 +45,7 @@ export const units = {
         attack: 1,
         defense: 0,
         speed: 1,
+        cap: 50,
         abilities: ['research', 'miner']
     },
     s: {
@@ -51,7 +55,8 @@ export const units = {
         attack: 1,
         defense: 2,
         speed: 0,
-        abilities: ['bowman', 'cavalry']
+        cap: 50,
+        abilities: ['bowman', 'rider']
     },
     r: {
         name: 'rider',
@@ -60,6 +65,7 @@ export const units = {
         attack: 2,
         defense: 2,
         speed: 3,
+        cap: 36,
         abilities: ['charge', 'retreat', 'soldier']
     },
     e: {
@@ -69,7 +75,8 @@ export const units = {
         attack: 4,
         defense: 6,
         speed: 1,
-        abilities: ['charge', 'trample', 'cavalry']
+        cap: 24,
+        abilities: ['charge', 'trample', 'rider']
     },
     b: {
         name: 'bowman',
@@ -79,6 +86,7 @@ export const units = {
         defense: 1,
         range: 2,
         speed: 1,
+        cap: 50,
         abilities: ['soldier', 'retreat', 'skirmish']
     },
     t: {
@@ -89,6 +97,7 @@ export const units = {
         defense: 1,
         range: 4,
         speed: 1,
+        cap: 12,
         abilities: ['trample', 'escort', 'bowman']
     }
 }

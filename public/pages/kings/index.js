@@ -12,7 +12,7 @@ import Tooltip from '../../components/tooltip'
 export default function Kings() {
     const [dimension, setDimension] = useState(8)
     const [state, setState] = useState({
-        delay: 1500,
+        delay: 1000,
         positionOne: 0,
         positionTwo: dimension**2 - 1,
         matrix: Array(dimension**2).fill(0).map(() => ({type: 'c', total: 0, player: 1}))
@@ -106,6 +106,7 @@ export default function Kings() {
             `Defense: ${unit.defense}`,
             `Speed: ${unit.speed}`,
             `Range: ${unit.range ?? 1}`,
+            `Unit Cap: ${unit.cap}`,
             ' --- ',
             `Abilities: `,
             unit.abilities.join(', ')

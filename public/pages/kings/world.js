@@ -14,15 +14,9 @@ export default function World(props) {
     const canReach = pos => {
         let row = Math.ceil(pos/8)
         let col = pos%8
-        console.log(row, col)
         let coef = row%2 === 0 ? -1 : 1;
         if(row%2 === 0 && col === 0) coef = 1
         if(row%2 === 1 && col === 0) coef = 0
-        console.log([
-            -dimension + ( coef), 
-            -dimension, -1, 1, dimension, 
-            dimension + (coef)
-        ])
         return [
             -dimension + ( coef), 
             -dimension, -1, 1, dimension, 
@@ -34,16 +28,21 @@ export default function World(props) {
     const [muster, setMuster] = useState([null, null]) // [index, total]
     const [garrison, setGarrison] = useState([]) // list of garrison ids
     const [labor, setLabor] = useState([]) // list of laborer ids (laborers are also garrison)
-	const [troops, setTroops] = useState(matrix);
-    
+    const [troops, setTroops] = useState(matrix);
+    // the 1 in the numerator can be changed to 2 then 3 with research to boost growth
+    //let y = arr.map(i => 1/((unit.cap/(unit.cap-i))+Math.exp(-(i))))
+    const [boost, setBoost] = useState(1)
+    let growth = (cap, n) => boost / ((1/(1-n/cap)) + Math.exp(-n))
     useInterval(() => {
         setTroops(state => {
             return state.map((unit, id) => {
-                // console.log('set', id, unit)
+                let cap = units[unit.type].cap
                 if(unit.total < 0) { return unit.total = 0, unit } 
-                if(forts.includes(id) && unit.total < 50) { return unit.total++, unit }
-                // if(forts.includes(id) && unit.total >= 75) return unit.total -= Math.floor(Math.random() * 1.05), unit
-                if(unit.total <= 50 && garrison.includes(id)) return unit
+                if(forts.includes(id)) {
+                    let delta = growth(cap, unit.total)
+                    unit.total += delta
+                    return unit 
+                }
                 if(decay) { return unit.total -= Math.floor(Math.random() * 1.1), unit }
                 return unit
             })
@@ -57,7 +56,14 @@ export default function World(props) {
         const pos = muster[0]
         if(!(typeof target === 'number') || !(typeof pos === 'number')) return
         if(useEdge(pos, target, dimension)) return
-        if(target === pos) return setMuster([null, null])
+        if(target === pos || 
+            troops[target].type !== unit.type ||
+            troops[target].total >= units[troops[target].type].cap
+            ) { return setMuster([null, null]) }
+        let delta;
+        if(troops[target].total + unit.total >= units[unit.type].cap) {
+            delta = units[unit.type].cap - unit.total
+        }
         const type = muster[1].type
         const quantity = muster[1].total
         const player = muster[1].player
@@ -72,11 +78,11 @@ export default function World(props) {
             setTroops(prev => prev.map((u, idx) => {
                 if(idx === pos) {
                     console.log('1')
-                    u.total -= quantity
+                    u.total -= delta ?? quantity
                     return u
                 } else if (idx === target) {
                     console.log('3')
-                    u.total += quantity
+                    u.total += delta ?? quantity
                     return u
                 } else { 
                     console.log('3')
@@ -127,7 +133,7 @@ export default function World(props) {
                             <div class={`${styles.troop}`}
                             onClick={e => musterTroops(unit, i)}
                             onContextMenu={e => useAbility(e, unit, i)}>
-                                <span>{unit.total}</span>
+                                <span>{Math.round(unit.total)}</span>
                                 <span class={styles[units[unit.type].css]}>{units[unit.type].icon}</span>
                                 <AbilityMenu abilities={units[unit.type].abilities} />           
                             </div> : null }

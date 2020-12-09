@@ -72,7 +72,7 @@
 .world {
     position: absolute;
     margin-top: 30vh;
-    transform: rotateX(55deg) rotateY(0deg) rotateZ(-45deg);
+    transform: rotateX(60deg) rotateY(0deg) rotateZ(-50deg);
 }
 .backboard {
     position: absolute;
@@ -159,7 +159,8 @@
     align-items: center;
     user-select: none;
     font-weight: 700;
-    transform: rotateX(-30deg) rotateY(10deg) rotateZ(45deg) scaleX(1.1) scaleY(1.8);
+    padding: 0 2px;
+    transform: rotateX(-25deg) rotateY(15deg) rotateZ(53deg) scaleX(1) scaleY(1.75);
 }
 .dagger {
     display: inline-block;
