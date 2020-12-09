@@ -1,37 +1,126 @@
 :root {
-    --cell-side: 3rem;
-    --grid-gap: 1px;
-    --border: 1px;
+    --cell-side: 4rem;
+    --grid-gap: 3px;
+    --border: 3px;
     --grid-columns: 8;
     --grid-lines: 8;
+    --grid-tile-size: calc(calc(calc(2 * var(--border)) + var(--grid-gap) ) + var(--cell-side));
+    --hex-buffer: calc(var(--grid-columns) + 0.5);
+    --board-padding: 5px;
     --board-color: linen;
     --selection-color: #DC143C;
     --selection-color-light: #dc143c75;
     --deploy-color-light: #00bfff75;
+    --build-color-light: #ffd70075;
+}
+.settings {
+    margin: 0 auto;
+    text-align: center;
+}
+.description, .title { text-align: center; }
+.conscript {grid-area: conscript;}
+.laborer { grid-area: laborer;}
+.miner { grid-area: miner;}
+.alchemist { grid-area: alchemist;}
+.soldier { grid-area: soldier;}
+.rider { grid-area: rider;}
+.bowman { grid-area: bowman;}
+.war-elephant { grid-area: warelephant;}
+.trebuchet { grid-area: siege;}
+.guide {
+    display: grid;
+    width: fit-content;
+    grid-template-columns: repeat(4 , 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas: 
+    /* ".         miner   alchemist ."
+    "conscript soldier rider  warelephant"
+    ".         laborer bowman siege"; */
+    "conscript conscript conscript conscript"
+    "laborer   soldier   soldier   miner"
+    "...       rider     bowman alchemist"
+    "...     warelephant siege     ... ";
+    justify-content: center;
+    margin: 8px auto;
+}
+.guide p {
+    border: 1px solid steelblue;
+    border-radius: 4px;
+    padding: 0 3px;
+    margin: 2px;
+    text-transform: capitalize;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .kings {
 	background: #f6f6f6;
-	color: #333;
+    color: #333;
 }
-.kings label {
+.kings label, .kings button {
+    font-size: 1rem;
     border: 1px solid steelblue;
     border-radius: 4px;
     padding: 4px;
     margin: 0 2px;
 }
-.grid {
-    display: grid;
+.worldwrapper {
+    min-height: 100vh;
+    position: relative;
+    padding: 2rem;
+}
+.world {
+    position: absolute;
+    margin-top: 30vh;
+    transform: rotateX(55deg) rotateY(0deg) rotateZ(-45deg);
+}
+.backboard {
+    position: absolute;
+    padding: var(--board-padding);
     background: center / cover url('../../img/grass.png') forestgreen no-repeat;
-    height: calc(calc(var(--cell-side) * var(--grid-lines)) + calc(calc(var(--grid-gap) * 2 + var(--border)) * var(--grid-lines)));
-    width: calc(calc(var(--cell-side) * var(--grid-columns)) + calc(calc(var(--grid-gap) * 2 + var(--border)) * var(--grid-columns)));
+    height: calc(var(--grid-tile-size) * var(--grid-lines));
+    width: calc(var(--grid-tile-size) * var(--hex-buffer));
+    border: 1px solid #888;
+    /* filter: drop-shadow(10px 10px 10px 10px black); */
+    /* filter: blur(2px); */
+    /* filter: sepia(100%); */
+    filter: hue-rotate(10deg);
+    /* transform: rotateX(55deg) rotateY(0deg) rotateZ(-45deg); */
+
+}
+.grid {
+    position: absolute;
+    top: var(--board-padding);
+    left: var(--board-padding);
+    height: calc(var(--grid-tile-size) * var(--grid-lines));
+    width: calc(var(--grid-tile-size) * var(--grid-columns));
     display: grid;
     grid-template-rows: repeat(var(--grid-columns), 1fr);
-    grid-template-columns: repeat(var(--grid-columns), 1fr);
+    grid-template-columns: repeat(var(--grid-lines), 1fr);
     grid-gap: var(--grid-gap);
-    margin: 0 auto;
-    border: 1px solid #888;
-    overflow: hidden;
-    transform: rotateX(55deg) rotateY(0deg) rotateZ(-45deg);
+    /* transform: rotateX(55deg) rotateY(0deg) rotateZ(-45deg); */
+
+
+}
+/* .cell:nth-of-type(1)::before {
+    content: '';
+    background: white;
+    height: var(--cell-side);
+    width: var(--cell-side);
+    position: absolute;
+    top: 0;
+    left: 0;
+} */
+.cell:nth-of-type(16n + 1),
+.cell:nth-of-type(16n + 2),
+.cell:nth-of-type(16n + 3),
+.cell:nth-of-type(16n + 4),
+.cell:nth-of-type(16n + 5),
+.cell:nth-of-type(16n + 6),
+.cell:nth-of-type(16n + 7),
+.cell:nth-of-type(16n + 8) {
+    /* background-color: crimson; */
+   transform: translateX(calc(var(--cell-side) / 1.6));
 }
 .king {
     background: 
@@ -42,35 +131,41 @@
     
 }
 .cell {
+    /* position: relative; */
     background-color: transparent;
     width: var(--cell-side);
     height: var(--cell-side);
     transition: all 400ms;
+    transition: outline 0ms;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     border: var(--border) solid rebeccapurple;
+    overflow: hidden;
 }
 .cell:hover, .muster:hover {
-    outline: 3px dashed var(--selection-color);
+    outline: 3px dashed deeppink;
 }
 .muster {background-color: var(--selection-color-light);}
-.deployable { background-color: var(--deploy-color-light);}
+.deploy { background-color: var(--deploy-color-light);}
+.build { background-color: var(--build-color-light);}
 .troop {
+    background-color: #ffffffab;
+    border-radius: 4px;
     white-space: nowrap;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     user-select: none;
     font-weight: 700;
     transform: rotateX(-30deg) rotateY(10deg) rotateZ(45deg) scaleX(1.1) scaleY(1.8);
 }
 .dagger {
     display: inline-block;
-    transform: rotate(150deg) translateY(5px);
+    transform: rotate(150deg);
 }
-.shield {
-    display: inline-block;
-    transform: translateY(-3px);
+.standard {
+    transform: rotate(0deg)
 }
+
