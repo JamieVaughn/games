@@ -24,11 +24,11 @@ export default function Tooltip(props) {
       {props.children}
       {active && (
         <div className={`Tooltip-Tip ${props.direction || "bottom"}`}>
-          {props.content.map(i => (
-              <div className='tip-list'>{i}</div>
+          {props.content.map((i) => (
+            <div className="tip-list">{i}</div>
           ))}
         </div>
       )}
     </div>
   );
-};
+}
