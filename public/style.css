@@ -43,3 +43,21 @@ header input {
 .app > section {
 	padding: 20px;
 }
+
+
+[class*='troop'].oncooldown {
+	background: linear-gradient(to right, #f7456370 50%, #ffffff70 50%);
+	background-size: 200% 100%;
+	background-position: 99% 0%;
+	animation: linear 0s 1 none cooldown;
+	animation-duration: 3s;
+}
+@keyframes cooldown {
+    0% {
+        background-position: 00% 0%;
+	}
+    100% {
+        background-position: 100% 0%;
+        
+    }
+}

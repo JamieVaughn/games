@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useMemo, useState } from 'preact/hooks'
 import useEventListener from '../../hooks/useEventListener'
 
 import World from './world'
-import {units} from './pieces'
+import {units, resources} from './pieces'
 import Tooltip from '../../components/tooltip'
 
 
@@ -11,10 +11,12 @@ import Tooltip from '../../components/tooltip'
 
 export default function Kings() {
     const [dimension, setDimension] = useState(8)
+    let resource = resources(dimension)
     const [state, setState] = useState({
         delay: 1000,
         positionOne: 0,
         positionTwo: dimension**2 - 1,
+        resources: resource,
         matrix: Array(dimension**2).fill(0).map(() => ({type: 'c', total: 0, player: 1}))
     })
     // const [dragState, setDragState] = useState({
@@ -107,6 +109,7 @@ export default function Kings() {
             `Speed: ${unit.speed}`,
             `Range: ${unit.range ?? 1}`,
             `Unit Cap: ${unit.cap}`,
+            `Cooldown: ${unit.cooldown}`,
             ' --- ',
             `Abilities: `,
             unit.abilities.join(', ')
@@ -128,12 +131,12 @@ export default function Kings() {
                     </label>
                     <button type='button' onClick={handleStart}>Start Game</button>
                 </form>
-				<p class={styles.description}>A real time strategy game. Mouse over to see unit stats below:</p>
+				<p class={styles.description}>A Cooldown-based Strategy game. Mouse over to see unit stats below:</p>
                 <div class={styles.guide}>
                 {Object.values(units).map(u => (
                     <Tooltip class={styles[u.name]} content={useList(u)}>
-                        <p class={u.name}>{u.name}: 
-                            <span class={styles[u.css]} role="img" aria-label={u.name + '-icon'}>{u.icon}</span>
+                        <p class={u.name}>{u.name} &#x200B; 
+                            <span class={styles[u.css]} role="img" aria-label={u.name + '-icon'}>&#x200B; {u.icon}</span>
                         </p>
                     </Tooltip>
                 ))}

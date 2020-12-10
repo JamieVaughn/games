@@ -1,4 +1,5 @@
 :root {
+    --kings-crown: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 10 70 80%22><foreignObject width=%22100px%22 height=%22100px%22><div xmlns=%22http://www.w3.org/1999/xhtml%22 style=%22color:transparent;background:linear-gradient(0deg, gold 25%, lemonchiffon 60%, crimson 98%);background-clip:text;-webkit-background-clip:text;font-size:70px%22>👑</div></foreignObject></svg>");
     --cell-side: 4rem;
     --grid-gap: 3px;
     --border: 3px;
@@ -65,13 +66,14 @@
     margin: 0 2px;
 }
 .worldwrapper {
-    min-height: 100vh;
+    min-height: calc(100vh - 375px);
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 2rem;
 }
 .world {
-    position: absolute;
-    margin-top: 30vh;
     transform: rotateX(60deg) rotateY(0deg) rotateZ(-50deg);
 }
 .backboard {
@@ -89,9 +91,7 @@
 
 }
 .grid {
-    position: absolute;
-    top: var(--board-padding);
-    left: var(--board-padding);
+    margin: var(--board-padding) 0 0 var(--board-padding);
     height: calc(var(--grid-tile-size) * var(--grid-lines));
     width: calc(var(--grid-tile-size) * var(--grid-columns));
     display: grid;
@@ -125,7 +125,7 @@
 .king {
     background: 
         center
-        url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 10 70 80%22><foreignObject width=%22100px%22 height=%22100px%22><div xmlns=%22http://www.w3.org/1999/xhtml%22 style=%22color:transparent;background:linear-gradient(0deg, gold 25%, lemonchiffon 60%, crimson 98%);background-clip:text;-webkit-background-clip:text;font-size:70px%22>👑</div></foreignObject></svg>")
+        var(--kings-crown)
         no-repeat;
     background-size: 50px 50px;
     
@@ -150,8 +150,10 @@
 .muster {background-color: var(--selection-color-light);}
 .deploy { background-color: var(--deploy-color-light);}
 .build { background-color: var(--build-color-light);}
+.muster .troop { background: #fff;}
 .troop {
-    background-color: #ffffffab;
+    background: #ffffff70;
+    border: 2px solid rgba(255, 255, 255, 0.8);
     border-radius: 4px;
     white-space: nowrap;
     display: flex;
@@ -160,7 +162,19 @@
     user-select: none;
     font-weight: 700;
     padding: 0 2px;
+    z-index: 1;
     transform: rotateX(-25deg) rotateY(15deg) rotateZ(53deg) scaleX(1) scaleY(1.75);
+}
+.feature {
+    position: absolute;
+    font-size: 3rem;
+    transform: rotateX(-25deg) rotateY(15deg) rotateZ(53deg) scaleX(1) scaleY(1.7) translateY(-3px);
+}
+[class*='🌳'] {
+    font-size: 1.75rem;
+}
+[class*='🌲'] {
+    font-size: 2.25rem;
 }
 .dagger {
     display: inline-block;
