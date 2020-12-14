@@ -12,7 +12,7 @@ const Kings = lazy(() => import("./pages/kings/index.js"));
 
 export function App() {
   return (
-    <LocationProvider>
+    <LocationProvider base='games'>
       <div class="app">
         <Header />
         <ErrorBoundary>

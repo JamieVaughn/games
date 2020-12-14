@@ -3,6 +3,7 @@
 		"start": "wmr",
 		"build": "wmr build --prerender",
 		"serve": "wmr serve",
+		"deploy": "git subtree push --prefix dist origin deploy",
 		"lint:fix": "eslint --fix --ext .js,.jsx .",
 		"check": "npx prettier --check 'public/**/*.js'",
 		"format": "npx prettier --write 'public/**/*.js'"
