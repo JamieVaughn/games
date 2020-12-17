@@ -1,5 +1,6 @@
 import styles from "./style.module.css";
 import { useState } from "preact/hooks";
+import Modal from '../../components/modal'
 
 export default function Home() {
   const [count, setCount] = useState(0);
@@ -19,6 +20,7 @@ export default function Home() {
           </button>
         </>
       </section>
+      <Modal mask={false}/>
     </>
   );
 }
