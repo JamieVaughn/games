@@ -5,8 +5,21 @@
 // charge: attack bonus if initiating attack,
 // retreat: can withdraw from battle-lock
 // skirmish: can also move to any square adjacent to an adjacent ally.
-// trample: overkill is assigned to adjacent enemies, if any.
+// trample: overkill is assigned to adjacent enemies, if any. Can damage buildings.
 // escort: may only move to space adjacent to allies.
+// bulwark: can build an impassable structure on a space with 50 defense.
+// Greek-fire: Attacks leave flame residue in target space for 2 * cooldown, which does half damage.
+
+// Upgrades
+// Growth: increases conscript recruitment rate at castle
+// Armor: upgrade to soldier defense
+// Science: Enables engineers
+// Animal Husbandry: Enables Riders and War Elephants
+// Mechanical Excavation: increase mining rate
+// Longbow: increase bowman range by 1
+// Lances: increase rider and elephant charge attack
+// Infernal catalyst: enables pyromancers and greek fire
+// Cluster Rounds: Trebuchet attacks deal half damage to target's adjacent 6 tiles.
 const unitBuilder = ({
   name,
   icon,
@@ -39,7 +52,7 @@ export const units = {
     icon: "🗡️",
     css: "dagger",
     defense: 1,
-    abilities: ["labor", "miner", "soldier"],
+    abilities: ["laborer", "miner", "soldier"],
   }),
   l: unitBuilder({
     name: "laborer",
@@ -49,7 +62,14 @@ export const units = {
     defense: 0,
     speed: 1,
     cap: 50,
-    abilities: ["build", "conscript"],
+    abilities: ["build", "conscript", "engineer"],
+  }),
+  e: unitBuilder({
+    name: "engineer",
+    icon: "⚙️",
+    defense: 1,
+    cap: 36,
+    abilities: ["labor", "bulwark", "trebuchet"]
   }),
   m: unitBuilder({
     name: "miner",
@@ -68,7 +88,7 @@ export const units = {
     attack: 1,
     defense: 0,
     speed: 1,
-    cap: 50,
+    cap: 36,
     abilities: ["research", "miner"],
   }),
   s: unitBuilder({
@@ -91,7 +111,7 @@ export const units = {
     cap: 36,
     abilities: ["charge", "retreat", "soldier"],
   }),
-  e: unitBuilder({
+  w: unitBuilder({
     name: "war-elephant",
     icon: "🐘",
     css: "standard",
@@ -121,8 +141,17 @@ export const units = {
     range: 4,
     speed: 1,
     cap: 12,
-    abilities: ["trample", "escort", "bowman"],
+    abilities: ["trample", "escort", "engineer"],
   }),
+  p: unitBuilder({
+    name: "pyromancer",
+    icon: '🔥',
+    attack: 6,
+    defense: 0,
+    range: 2,
+    cap: 12,
+    abilities: ["alchemist", "Greek-fire", "trample"]
+  })
 };
 const mapBuilder = () => (size) => {
   let features = ["⛰️", "⛰️", "⛰️", "⛰️", "🌲", "🌲", "🌳", "🌳", "🌲", "🌲"];

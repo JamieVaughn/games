@@ -61,3 +61,8 @@ header input {
         
     }
 }
+
+.map {
+	max-height: calc(100vh - 39px);
+	max-width: 100vw;
+}

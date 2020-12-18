@@ -21,8 +21,10 @@
 .description, .title { text-align: center; }
 .conscript {grid-area: conscript;}
 .laborer { grid-area: laborer;}
+.engineer { grid-area: engineer;}
 .miner { grid-area: miner;}
 .alchemist { grid-area: alchemist;}
+.pyromancer { grid-area: pyromancer;}
 .soldier { grid-area: soldier;}
 .rider { grid-area: rider;}
 .bowman { grid-area: bowman;}
@@ -34,13 +36,10 @@
     grid-template-columns: repeat(4 , 1fr);
     grid-template-rows: repeat(4, 1fr);
     grid-template-areas: 
-    /* ".         miner   alchemist ."
-    "conscript soldier rider  warelephant"
-    ".         laborer bowman siege"; */
     "conscript conscript conscript conscript"
     "laborer   soldier   soldier   miner"
-    "...       rider     bowman alchemist"
-    "...     warelephant siege     ... ";
+    "engineer  rider     bowman   alchemist"
+    "siege   warelephant   ...    pyromancer ";
     justify-content: center;
     margin: 8px auto;
 }

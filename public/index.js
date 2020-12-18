@@ -9,6 +9,7 @@ import "./style.css";
 
 const About = lazy(() => import("./pages/about/index.js"));
 const Kings = lazy(() => import("./pages/kings/index.js"));
+const Map = lazy(() => import("./pages/map/index.js"));
 const Fantasy = lazy(() => import("./pages/fantasy/index.js"));
 
 export function App() {
@@ -21,6 +22,7 @@ export function App() {
             <Home path="/" />
             <About path="/about" />
             <Kings path="/kings" />
+            <Map path="/map" />
             <Fantasy path="/fantasy" />
             <NotFound default />
           </Router>
