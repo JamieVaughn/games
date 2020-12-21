@@ -8,6 +8,7 @@ import Header from "./header.js";
 import "./style.css";
 
 const About = lazy(() => import("./pages/about/index.js"));
+const Canvas = lazy(() => import("./pages/canvas/index.js"));
 const Kings = lazy(() => import("./pages/kings/index.js"));
 const Map = lazy(() => import("./pages/map/index.js"));
 const Fantasy = lazy(() => import("./pages/fantasy/index.js"));
@@ -21,6 +22,7 @@ export function App() {
           <Router>
             <Home path="/" />
             <About path="/about" />
+            <Canvas path="/canvas" />
             <Kings path="/kings" />
             <Map path="/map" />
             <Fantasy path="/fantasy" />
