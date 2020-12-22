@@ -6,7 +6,6 @@ export default function Header() {
     <header>
       <nav>
         <a href="/">Home</a>
-        <a href="/about">About</a>
         <a href="/canvas">Canvas</a>
         <a href="/kings">Kings</a>
         <a href="/map">Map</a>

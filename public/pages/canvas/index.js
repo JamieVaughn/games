@@ -1,11 +1,12 @@
 import {useEffect, useRef, useState} from 'preact/hooks'
-import {modes, circle, square, path, stamp} from './draw'
+import { draw } from './draw'
 import Modal from '../../components/modal'
 
 import style from './style.module.css'
 
 // https://thibaut.io/react-canvas-components
 // https://www.redblobgames.com/grids/hexagons/
+// https://konvajs.org/docs/react/index.html
 
 const HEIGHT = 500
 const WIDTH = 500
@@ -49,11 +50,11 @@ export default function Canvas() {
       setColor(e.target.value)
   }
   function handleClear() {
-      square(context, 0, 0, HEIGHT, 'white')
+      draw.square(context, 0, 0, HEIGHT, 'white')
       setDrawHistory([])
   }
   function run(fn) {
-      return modes[fn.type](context, ...fn.args)
+      return draw[fn.type](context, ...fn.args)
   }
   function handleUndo () {
     const index = drawHistory.lastIndexOf('break') 
@@ -84,7 +85,7 @@ export default function Canvas() {
         start = {x: e.clientX - canvasOffset.left, y: e.clientY - canvasOffset.top}
         end = {x: e.clientX - canvasOffset.left, y: e.clientY - canvasOffset.top}
         if(stamping) {
-            stamp(context, start, color)
+            draw.stamp(context, start, color)
             setDrawHistory(state => [...state, {type: 'stamp', args: [{x: e.clientX - canvasOffset.left, y: e.clientY - canvasOffset.top}, color]}])
             return
         }
@@ -98,7 +99,7 @@ export default function Canvas() {
             start = {x: nd.x, y: nd.y}
             end = {x: e.clientX - canvasOffset.left, y: e.clientY - canvasOffset.top}
             //Draw Path
-            path(context, start, end, color)
+            draw.path(context, start, end, color)
             setDrawHistory(state => [...state, {type: 'path', args: [{x: nd.x, y: nd.y}, {x: e.clientX - canvasOffset.left, y: e.clientY - canvasOffset.top}, color]}])
         }
     }
@@ -114,7 +115,7 @@ export default function Canvas() {
         canvasRef.current.addEventListener('mousemove', e => handleMouseMove(e, end))
 
         // context.fillRect(5, 5, 100, 100)
-        // circle(context, 440, 60, 50, 'crimson')
+        // draw.circle(context, 440, 60, 50, 'crimson')
     } 
 
     return () => {
