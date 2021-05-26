@@ -10,6 +10,7 @@ import "./style.css";
 const Canvas = lazy(() => import("./pages/canvas/index.js"));
 const Kings = lazy(() => import("./pages/kings/index.js"));
 const Map = lazy(() => import("./pages/map/index.js"));
+const TicTacToe = lazy(() => import("./pages/tictactoe/index.js"));
 const Fantasy = lazy(() => import("./pages/fantasy/index.js"));
 
 export function App() {
@@ -23,6 +24,7 @@ export function App() {
             <Canvas path="/canvas" />
             <Kings path="/kings" />
             <Map path="/map" />
+            <TicTacToe path="/tictactoe" />
             <Fantasy path="/fantasy" />
             <NotFound default />
           </Router>
