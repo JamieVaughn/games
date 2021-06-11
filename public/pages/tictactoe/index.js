@@ -36,14 +36,15 @@ const Game = props => {
 
   const jumpTo = step => {
     setStep(step)
+    if(step === 0) setHistory([Array(9).fill(null)])
     setXIsNext(step % 2 === 0)
   }
 
   const renderMoves = () => {
     return history.map((_step, move) => {
-      const destination = move ? `Go to move #${move}` : 'Go to start'
+      const destination = move ? `Go to move #${move}` : 'Reset'
       return (
-        <li key={move}>
+        <li key={move} style={{listStyle: 'none'}}>
           <button onClick={() => jumpTo(move)}>{destination}</button>
         </li>
       )
@@ -55,14 +56,13 @@ const Game = props => {
       <Board onClick={handleClick} squares={history[step]}/>
       <div className={styles.players}>
         <p>{winner ? 'Winner: ' + winner : 'Next Player: ' + (xIsNext ? 'Xs' : 'Os')}</p>
-        {renderMoves()}
-        {JSON.stringify(history)}
+        {!!step && renderMoves()}
       </div>
     </>
   )
 }
 
-export default function TicTacToe(props) {
+export default function TicTacToe() {
     return (
         <Game />
     )

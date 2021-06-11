@@ -1,4 +1,3 @@
-import React from "react";
 
 export default function AbilityMenu(props) {
   const { abilities, callback } = props;

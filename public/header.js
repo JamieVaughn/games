@@ -10,7 +10,7 @@ export default function Header() {
         <a href="/kings">Kings</a>
         <a href="/map">Map</a>
         <a href="/tictactoe">TicTacToe</a>
-        <a href="/fantasy">Fantasy</a>
+        {/* <a href="/fantasy">Fantasy</a> */}
         {/* <a href="/error">Error</a> */}
       </nav>
       <label>

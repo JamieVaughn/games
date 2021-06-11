@@ -1,13 +1,12 @@
 import styles from "./style.module.css";
 import {
-  useCallback,
   useEffect,
   useRef,
-  useMemo,
   useState,
 } from "preact/hooks";
 import useEventListener from "../../hooks/useEventListener";
 
+import Difficulty from './difficultyMenu'
 import World from "./world";
 import { units, resources } from "./pieces";
 import Tooltip from "../../components/tooltip";
@@ -35,26 +34,8 @@ export default function Kings() {
   //     isDragging: true,
   //     origin: {x: clientX, y: clientY}
   // }))
-  const handleDifficulty = (e) => {
-    if (e.target.value) {
-      setDimension(Number(e.target.value));
-    }
-  };
-  const handleStart = (e) => {
-    e.preventDefault();
-    console.log(e);
-  };
 
-  useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--grid-columns",
-      String(dimension)
-    );
-    document.documentElement.style.setProperty(
-      "--grid-lines",
-      String(dimension)
-    );
-  }, [dimension]);
+  
 
   // const panScreen = useCallback(({clientX, clientY}) => {
   //     // console.log(clientX, clientY)
@@ -132,27 +113,7 @@ export default function Kings() {
     <>
       <section class={styles.kings}>
         <h1 class={styles.title}>King's Corvée</h1>
-        <form class={styles.settings}>
-          Choose difficulty:
-          <label for="easy" onClick={handleDifficulty}>
-            {" "}
-            Easy
-            <input type="radio" id="easy" name="difficulty" value="8" checked />
-          </label>
-          <label for="medium" onClick={handleDifficulty}>
-            {" "}
-            Medium
-            <input type="radio" id="medium" name="difficulty" value="12" />
-          </label>
-          <label for="hard" onClick={handleDifficulty}>
-            {" "}
-            Hard
-            <input type="radio" id="hard" name="difficulty" value="20" />
-          </label>
-          <button type="button" onClick={handleStart}>
-            Start Game
-          </button>
-        </form>
+        {/* <Difficulty dimension={dimension} setDimension={setDimension} setState={setState} /> */}
         <p class={styles.description}>
           A Cooldown-based Strategy game. Mouse over to see unit stats below:
         </p>

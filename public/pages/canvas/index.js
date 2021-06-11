@@ -14,6 +14,7 @@ const WIDTH = 500
 export default function Canvas() {
   const canvasRef = useRef(null);
   const [context, setContext] = useState(null);
+  const [path, setPath] = useState('')
   const [color, setColor] = useState('#0000ff')
   const [stamping, setStamping] = useState(false)
   const [drawHistory, setDrawHistory] = useState([])
@@ -45,8 +46,10 @@ export default function Canvas() {
         ]
     )
   }
+  function handlePath(e) {
+    setPath(e.target.value)
+}
   function handleColor(e) {
-      console.log(e.target)
       setColor(e.target.value)
   }
   function handleClear() {
@@ -85,7 +88,7 @@ export default function Canvas() {
         start = {x: e.clientX - canvasOffset.left, y: e.clientY - canvasOffset.top}
         end = {x: e.clientX - canvasOffset.left, y: e.clientY - canvasOffset.top}
         if(stamping) {
-            draw.stamp(context, start, color)
+            draw.stamp(context, start, color, path)
             setDrawHistory(state => [...state, {type: 'stamp', args: [{x: e.clientX - canvasOffset.left, y: e.clientY - canvasOffset.top}, color]}])
             return
         }
@@ -154,9 +157,12 @@ export default function Canvas() {
       </ul>
       <div class={style.controls} style={{maxWidth: WIDTH}}>
           <button onClick={handleSave}>Save</button>
-          <button onClick={handleClear}>Clear</button>
+          <button onClick={handleClear}>Clear</button>  
           <button onClick={handleUndo}>Undo</button>
           <button onClick={handleStamp}>{stamping ? 'Stop Stamping' : 'Start Stamping'}</button>
+          <label for="svg-path">Provide SVG Path: <br />
+            <textarea style={{width: "200px"}} id='svg-path' onChange={handlePath} placeholder="M1814v6a22001-22H6a22001-2-2V10a220012-2H12">{path}</textarea>
+          </label>
           <label for='palette'>Choose Color: &#x200B;
             <input id="palette" type="color" value={color} onChange={handleColor} />
           </label>

@@ -82,10 +82,7 @@
     height: calc(var(--grid-tile-size) * var(--grid-lines));
     width: calc(var(--grid-tile-size) * var(--hex-buffer));
     border: 1px solid #888;
-    /* filter: drop-shadow(10px 10px 10px 10px black); */
-    /* filter: blur(2px); */
-    /* filter: sepia(100%); */
-    filter: hue-rotate(10deg);
+    filter: hue-rotate(-30deg) sepia(.1) drop-shadow(-20px 20px 30px black);
     /* transform: rotateX(55deg) rotateY(0deg) rotateZ(-45deg); */
 
 }
@@ -128,6 +125,9 @@
         no-repeat;
     background-size: 50px 50px;
     
+}
+.startBtn:active {
+    transform: translateY(2px) scale(.97);
 }
 .cell {
     /* position: relative; */
@@ -183,3 +183,14 @@
     transform: rotate(0deg)
 }
 
+
+
+.unitcard {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border: 1px solid crimson;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+}

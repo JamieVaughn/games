@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "preact/hooks";
 import styles from "./style.module.css";
 
 import { units } from "./pieces";
@@ -7,6 +7,7 @@ import useEdge from "../../hooks/useEdge";
 import useGrowth from "../../hooks/useGrowth";
 
 import AbilityMenu from "./abilityMenu";
+import UnitCard from './unitcard'
 const decay = false;
 export default function World(props) {
   const { delay, matrix, positionOne, positionTwo, resources } = props;
@@ -23,6 +24,7 @@ export default function World(props) {
   // console.log('world', resources)
   const [forts, setForts] = useState([positionOne]);
   const [muster, setMuster] = useState([null, null]); // [index, total]
+  const [hasSelection, setHasSelection] = useState(false)
   const [active, setActive] = useState([]); // Array<{id, type, ability, total?}>
   const [troops, setTroops] = useState(matrix);
   // const [boost, setBoost] = useState(1)
@@ -49,6 +51,7 @@ export default function World(props) {
 
   const deployMusteredTroops = (e, unit, target) => {
     e.preventDefault();
+    setHasSelection(false);
     // console.log('Muster', ...muster)
     // console.log('Target', target, unit)
     const pos = muster[0];
@@ -101,10 +104,12 @@ export default function World(props) {
     if (active.find((a) => a.id === id)) return;
     if (typeof id === "number" && unit.total > 0) {
       setMuster([id, unit]);
+      setHasSelection(true)
     }
   };
   const activateAbility = (e, unit, id) => {
     e.preventDefault();
+    setHasSelection(false)
     console.log(unit, id, units[unit.type].abilities);
     if (active.find((a) => a.id === id)) return;
     let troop = e.currentTarget;
@@ -189,6 +194,13 @@ export default function World(props) {
             </div>
           ))}
         </section>
+      </div>
+      <div>
+        <UnitCard>
+          <div>Position: {muster[0]}</div>
+          <div>Type: {muster[1].type}</div>
+          <div>Troops: <span>{Math.round(muster[1].total)}</span></div>
+        </UnitCard>
       </div>
     </div>
   );
