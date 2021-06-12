@@ -66,3 +66,55 @@ header input {
 	max-height: calc(100vh - 39px);
 	max-width: 100vw;
 }
+
+
+.LineChart {
+	position: relative;
+	padding-left: 40px;
+	padding-bottom: 40px;
+}
+
+.LineChart svg {
+	fill: none;
+	stroke: #33C7FF;
+	display: block;
+	stroke-width: 2px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+.x-axis {
+	position: absolute;
+	bottom: 0;
+	height: 40px;
+	left: 40px;
+	right: 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+.y-axis {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 40px;
+	bottom: 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+.y-axis > div::after {
+	margin-right: 4px;
+	content: attr(data-value);
+	color: black;
+	display: inline-block;
+}
+
+.x-axis > div::after {
+	margin-top: 4px;
+	display: inline-block;
+	content: attr(data-value);
+	color: black;
+}
